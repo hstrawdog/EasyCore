@@ -136,8 +136,8 @@ afterEvaluate {
                 // 2.将源码打包到aar中
 //                artifact androidSourcesJar
 //                artifact(androidSourcesJar)
-                //version通常是指待发布项目的版本号，这里是写死的，通常我们取项目versionName
-                version = '2.0.0'
+                //version通常是指待发布项目的 版本号，这里是写死的，通常我们取项目versionName
+                version = '1.0.0'
 //                afterEvaluate {
 //                    from components.release
 //                }
