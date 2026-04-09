@@ -24,7 +24,8 @@ import java.util.concurrent.atomic.AtomicInteger
  * Compose 弹窗基类。
  * 默认使用透明背景，并关闭沉浸式状态栏控制，便于弹窗自己决定视觉表现。
  */
-abstract class BaseComposeDialog : DialogFragment(), ComposeRootViewHost, BundleAction, View.OnClickListener {
+abstract class BaseComposeDialog : DialogFragment(), ComposeRootViewHost, BundleAction,
+    View.OnClickListener {
     internal val activityResultMap = mutableMapOf<Int, (ActivityResult) -> Unit>()
     internal var requestCodeGenerator = AtomicInteger(2000)
     internal val registerForActivity =
@@ -61,7 +62,8 @@ abstract class BaseComposeDialog : DialogFragment(), ComposeRootViewHost, Bundle
     /**
      * 将默认标题栏控制器暴露给根布局装配层使用。
      */
-    override fun provideComposeToolbarController(): ComposeToolbarController = composeToolbarController
+    override fun provideComposeToolbarController(): ComposeToolbarController =
+        composeToolbarController
 
     /**
      * Dialog 默认补一个返回关闭动作，保持与旧弹窗行为一致。
@@ -70,8 +72,7 @@ abstract class BaseComposeDialog : DialogFragment(), ComposeRootViewHost, Bundle
         return ComposeToolbarSpec(
             title = providePageTitle(),
             controller = provideComposeToolbarController(),
-            onNavigationClick = { dismiss() }
-        )
+            onNavigationClick = { dismiss() })
     }
 
     /**
@@ -119,9 +120,7 @@ abstract class BaseComposeDialog : DialogFragment(), ComposeRootViewHost, Bundle
      * 首次创建时渲染 Compose 弹窗根布局。
      */
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         LogUtils.dMark(tag = TAG.LIVE_TAG, block = { "${this}   onCreateView" })
         if (rootView == null) {
@@ -133,7 +132,8 @@ abstract class BaseComposeDialog : DialogFragment(), ComposeRootViewHost, Bundle
             rootView = rootViewBuilder.rootViewImpl.render(config)
             rootView?.let { installViewTreeOwners(it) }
             initView()
-            LogUtils.dMark(tag = TAG.LIVE_TAG, block = { "${this}   onCreateView   rootView is  null" })
+            LogUtils.dMark(
+                tag = TAG.LIVE_TAG, block = { "${this}   onCreateView   rootView is  null" })
         }
         return rootView
     }
@@ -146,8 +146,7 @@ abstract class BaseComposeDialog : DialogFragment(), ComposeRootViewHost, Bundle
         LogUtils.dMark(tag = TAG.LIVE_TAG, block = { "${this} onActivityCreated" })
         dialog?.window?.setBackgroundDrawable(ColorDrawable(0x00000000))
         dialog?.window?.setLayout(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT
         )
         applyDialogWindowConfig()
     }
@@ -214,10 +213,7 @@ abstract class BaseComposeDialog : DialogFragment(), ComposeRootViewHost, Bundle
      * 通过反射兼容设置不同 AndroidX 版本下的 ViewTree owner。
      */
     protected fun setViewTreeOwner(
-        className: String,
-        ownerTypeName: String,
-        rootView: View,
-        owner: Any
+        className: String, ownerTypeName: String, rootView: View, owner: Any
     ) {
         runCatching {
             val ownerClass = Class.forName(ownerTypeName)

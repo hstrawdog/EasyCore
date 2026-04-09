@@ -28,13 +28,13 @@ class ComposeDialogDemoActivity : BaseComposeActivity() {
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(0xFFF5F7FB))
-                .padding(24.xdp),
-            verticalArrangement = Arrangement.spacedBy(16.xdp)
+                .padding(12.xdp),
+            verticalArrangement = Arrangement.spacedBy(8.xdp)
         ) {
             Text(
                 text = "这个页面只负责弹出 ComposeDialog，dialog 本身也尽量只关注内容。",
                 color = Color(0xFF18212F),
-                fontSize = dimens.text(30),
+                fontSize = dimens.text(15),
                 fontWeight = FontWeight.SemiBold
             )
             Button(
@@ -46,7 +46,7 @@ class ComposeDialogDemoActivity : BaseComposeActivity() {
                 Text(
                     text = "打开 Compose Dialog",
                     color = Color.White,
-                    fontSize = dimens.text(24)
+                    fontSize = dimens.text(12)
                 )
             }
         }

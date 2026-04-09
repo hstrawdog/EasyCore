@@ -32,8 +32,8 @@ class ComposeFragmentDemoFragment : BaseComposeFragment() {
                 .fillMaxSize()
                 .background(Color(0xFFF5F7FB))
                 .verticalScroll(rememberScrollState())
-                .padding(24.xdp),
-            verticalArrangement = Arrangement.spacedBy(16.xdp)
+                .padding(12.xdp),
+            verticalArrangement = Arrangement.spacedBy(8.xdp)
         ) {
             FragmentCard(
                 title = "Fragment 默认能力",
@@ -48,12 +48,12 @@ class ComposeFragmentDemoFragment : BaseComposeFragment() {
                     composeToolbarController.setTitle("Fragment 标题已更新")
                 },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF1E88E5)),
-                shape = RoundedCornerShape(18.xdp)
+                shape = RoundedCornerShape(9.xdp)
             ) {
                 Text(
                     text = "修改 Fragment 标题",
                     color = Color.White,
-                    fontSize = dimens.text(24)
+                    fontSize = dimens.text(12)
                 )
             }
         }
@@ -65,20 +65,20 @@ class ComposeFragmentDemoFragment : BaseComposeFragment() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White, RoundedCornerShape(24.xdp))
-                .padding(24.xdp),
-            verticalArrangement = Arrangement.spacedBy(10.xdp)
+                .background(Color.White, RoundedCornerShape(12.xdp))
+                .padding(12.xdp),
+            verticalArrangement = Arrangement.spacedBy(5.xdp)
         ) {
             Text(
                 text = title,
                 color = Color(0xFF18212F),
-                fontSize = dimens.text(32),
+                fontSize = dimens.text(16),
                 fontWeight = FontWeight.SemiBold
             )
             Text(
                 text = body,
                 color = Color(0xFF5C6878),
-                fontSize = dimens.text(28)
+                fontSize = dimens.text(14)
             )
         }
     }

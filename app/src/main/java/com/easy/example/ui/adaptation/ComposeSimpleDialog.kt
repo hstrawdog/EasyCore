@@ -33,26 +33,26 @@ class ComposeSimpleDialog : BaseComposeDialog() {
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(0xFFF5F7FB))
-                .padding(24.xdp),
-            verticalArrangement = Arrangement.spacedBy(16.xdp)
+                .padding(12.xdp),
+            verticalArrangement = Arrangement.spacedBy(8.xdp)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White, RoundedCornerShape(28.xdp))
-                    .padding(28.xdp),
-                verticalArrangement = Arrangement.spacedBy(16.xdp)
+                    .background(Color.White, RoundedCornerShape(14.xdp))
+                    .padding(14.xdp),
+                verticalArrangement = Arrangement.spacedBy(8.xdp)
             ) {
                 Text(
                     text = "全屏 Dialog 默认能力",
                     color = Color(0xFF18212F),
-                    fontSize = dimens.text(34),
+                    fontSize = dimens.text(17),
                     fontWeight = FontWeight.Bold
                 )
                 Text(
                     text = "这个 full-screen dialog 现在按 Activity 一样走内容头部：状态栏背景占位 + toolbar 由页面根布局负责，window 只同步状态栏图标深浅，避免系统默认样式把图标切浅。",
                     color = Color(0xFF5C6878),
-                    fontSize = dimens.text(28)
+                    fontSize = dimens.text(14)
                 )
                 Button(
                     onClick = {
@@ -63,7 +63,7 @@ class ComposeSimpleDialog : BaseComposeDialog() {
                     Text(
                         text = "修改 Dialog 标题",
                         color = Color.White,
-                        fontSize = dimens.text(24)
+                        fontSize = dimens.text(12)
                     )
                 }
                 Button(
@@ -73,22 +73,22 @@ class ComposeSimpleDialog : BaseComposeDialog() {
                     Text(
                         text = "关闭",
                         color = Color.White,
-                        fontSize = dimens.text(24)
+                        fontSize = dimens.text(12)
                     )
                 }
             }
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White, RoundedCornerShape(28.xdp))
-                    .padding(28.xdp),
-                verticalArrangement = Arrangement.spacedBy(12.xdp)
+                    .background(Color.White, RoundedCornerShape(14.xdp))
+                    .padding(14.xdp),
+                verticalArrangement = Arrangement.spacedBy(6.xdp)
             ) {
                 repeat(6) { index ->
                     Text(
                         text = "Dialog 内容块 ${index + 1}",
                         color = Color(0xFF18212F),
-                        fontSize = dimens.text(28)
+                        fontSize = dimens.text(14)
                     )
                 }
             }
