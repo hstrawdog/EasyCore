@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CoreAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:activityOpenEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@android:anim/slide_in_left</item>
+        <item name="android:activityCloseEnterAnimation">@android:anim/slide_out_right</item>
+        <item name="android:activityCloseExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+
+    <style name="LoadingDialogStyle" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="ToolbarStyle" parent="Base.Widget.AppCompat.ActionBar">
+        <item name="android:minHeight">@dimen/x88</item>
+        <item name="titleMargin">0dp</item>
+    </style>
+
+
+    <!--分割线-->
+    <style name="base_line">
+        <item name="android:background">@color/color_line_gray</item>
+    </style>
+    <!-- 透明的横向 分割线-->
+    <style name="line_vertical" parent="base_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/x2</item>
+    </style>
+    <!-- 背景颜色的横向分割线-->
+    <style name="line_vertical.bg_color">
+        <item name="background">@color/bg_color</item>
+    </style>
+    <!-- 垂直的分割线-->
+    <style name="line_horizontal" parent="base_line">
+        <item name="android:layout_width">@dimen/x2</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MyDialog1" parent="Base.AlertDialog.AppCompat.Light">
+        <!-- 背景颜色及透明程度 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 是否半透明 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 是否没有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否背景模糊 -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 设置背景模糊的透明度-->
+        <item name="android:backgroundDimAmount">0.0</item>
+    </style>
+    <!--自定义Dialog样式-->
+    <style name="MyDialog" parent="AlertDialog.AppCompat">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="DefDialogStyle" parent="AlertDialog.AppCompat">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="DialogAnimation_bottom2top">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <style name="dialogAnimation_fade_in2fade_out">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="DialogAnimation_tight_to_left">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+
+    <!-- 不带折叠的主题-->
+    <style name="TransparentBottomSheetStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/SheetStyle</item>
+    </style>
+
+    <style name="SheetStyle" parent="android:Widget">
+        <item name="android:background">@android:color/transparent</item>
+        <!--折叠的高度-->
+        <item name="behavior_peekHeight">auto</item>
+        <!-- 是否可以隐藏-->
+        <item name="behavior_hideable">true</item>
+        <!--折叠效果 false   开启-->
+        <item name="behavior_skipCollapsed">true</item>
+    </style>
+
+
+    <!-- 带折叠的主题 -->
+    <style name="TransparentBottomSheetStyle.behavior" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/SheetStyle.behavior</item>
+    </style>
+
+    <style name="SheetStyle.behavior">
+        <!--最好是要设置的一个高度  auto 有的坑-->
+        <item name="behavior_peekHeight">@dimen/x100</item>
+        <!--折叠效果 false   开启-->
+        <item name="behavior_skipCollapsed">false</item>
+    </style>
+
+
+</resources>

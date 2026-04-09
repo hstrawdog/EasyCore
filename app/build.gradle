@@ -1,0 +1,195 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'com.google.dagger.hilt.android'
+    id 'dagger.hilt.android.plugin'
+}
+
+//读取文件
+def versionPropertiesFile = rootProject.file("version.properties")
+def versionProps = new Properties()
+if (versionPropertiesFile.exists()) {
+    versionProps.load(new FileInputStream(versionPropertiesFile))
+} else {
+    versionProps.setProperty("versionCode", "1")
+    versionProps.setProperty("versionName", "1.0.0")
+}
+//更新版本号以及版本名称
+task updateVersion {
+    doLast {
+        def versionCode = versionProps['versionCode'].toInteger() + 1
+        def versionName = incrementVersionName(versionProps['versionName'])
+        versionProps.setProperty("versionCode", versionCode.toString())
+        versionProps.setProperty("versionName", versionName)
+        versionProps.store(new FileOutputStream(versionPropertiesFile), null)
+    }
+}
+
+// 曾加 版本号
+def incrementVersionName(String versionName) {
+    def parts = versionName.split("\\.")
+    def minor = parts[1].toInteger()
+    def patch = parts[2].toInteger() + 1
+    return "${parts[0]}.${minor}.${patch}"
+}
+// 让 updateVersion 在 assemble 任务前执行   finalizedBy 是任务后
+tasks.whenTaskAdded { task ->
+    if (task.name == 'assemblePatElfAlpha' || task.name == 'assemblePatElfRelease') {
+        task.finalizedBy updateVersion
+    }
+}
+
+//  Android 配置信息
+android {
+    dataBinding {
+        enabled = true
+    }
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+        compose true
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.1'
+    }
+    namespace 'com.easy.example'
+    compileSdk 34
+    defaultConfig {
+        applicationId "com.easy.example"
+        minSdkVersion 23
+        targetSdkVersion 33
+        versionName "1.0.0"
+        versionCode 1
+        flavorDimensions "versionCode"
+        multiDexEnabled true
+    }
+
+
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('./debug.keystore')
+            storePassword 'android'
+        }
+        release {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('./debug.keystore')
+            storePassword 'android'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    productFlavors {
+        debugApp {
+        }
+    }
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles 'proguard-rules.pro'
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors.all {
+            // 渠道名称
+        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
+    packagingOptions {
+        //Compose需要的配置
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    android.applicationVariants.all { variant ->
+        if (variant.buildType.name.equals('release'))
+            variant.outputs.all {
+                // outputFileName = "driver_${variant.productFlavors[0].name}_v${variant.versionName}(${variant.versionCode}).apk"
+                outputFileName = "${variant.productFlavors[0].name}_v${variant.versionName}(${variant.versionCode}).apk"
+            }
+    }
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res', 'src/main/res-main', 'src/main/res-night']
+            assets {
+                srcDirs 'src/main/assets'
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':Core')
+
+
+    api libs.constraintLayout
+
+    kapt libs.room.compiler
+    implementation libs.room.runtime
+
+
+    debugImplementation libs.leakcanary
+
+    // Hilt dependencies
+    implementation libs.daggerRuntime
+
+    kapt libs.daggerCompiler
+    kapt libs.hiltCompiler
+
+
+    api 'com.amap.api:location:latest.integration'
+
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    // Compose 运行时依赖统一由 Core 暴露，app 仅保留预览和测试能力
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.5.1'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.5.1'
+//
+//    // 包重复
+    implementation group: 'com.google.guava', name: 'guava', version: '27.0.1-android'
+
+
+    implementation libs.work
+
+    //裁剪图片第三方
+    api 'com.isseiaoki:simplecropview:1.1.8'
+    api "io.reactivex.rxjava2:rxandroid:2.0.2"
+    api "io.reactivex.rxjava2:rxjava:2.1.10"
+    implementation('io.socket:socket.io-client:1.0.0') {
+        exclude group: 'org.json', module: 'json' // 避免与 Android 自带 org.json 冲突
+    }
+
+//    api ('com.github.lzyzsd:jsbridge:2.0.0') {
+//        exclude group: 'com.github.lzyzsd.jsbridge', module: 'jsbridge-debug'
+//    }
+
+
+}
+kapt {
+    correctErrorTypes true
+}

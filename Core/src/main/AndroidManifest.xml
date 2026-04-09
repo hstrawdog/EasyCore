@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.FileProvider"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path" />
+        </provider>
+        <provider
+            android:name="com.easy.core.CoreProvider"
+            android:authorities="${applicationId}.core.provider"
+            android:multiprocess="true" />
+        <activity
+            android:name=".album.activity.AlbumFolderActivity"
+            android:theme="@style/NoTitle" />
+        <activity
+            android:name=".album.activity.AlbumDirectoryActivity"
+            android:theme="@style/NoTitle" />
+        <activity
+            android:name=".album.activity.AlbumDetailActivity"
+            android:theme="@style/NoTitle" />
+        <activity
+            android:name=".album.activity.AlbumPreviewActivity"
+            android:theme="@style/NoTitle" />
+    </application>
+</manifest>

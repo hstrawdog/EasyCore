@@ -1,0 +1,147 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'maven-publish'
+}
+
+
+android {
+    namespace 'com.easy.core'
+    buildFeatures {
+        //开启 viewBinding 支持
+        viewBinding true
+        //开启 dataBinding 支持
+        dataBinding true
+        //开启 Compose 支持
+        compose true
+    }
+    compileSdk 34
+    defaultConfig {
+        minSdkVersion 23
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.1'
+    }
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+
+}
+
+dependencies {
+    // 屏幕适配
+//    api project(':DimensCompat')
+    api libs.coilKt
+
+    api libs.i.dimens.compat
+    // Appcompat   包含 core
+    api libs.appcompat.core
+    api libs.appcompat.coreKtx
+
+    //  kotlin拓展包
+    api libs.activityKtx
+    api libs.fragmentKtx
+    //  androidX 组件
+    api libs.constraintLayout
+    api libs.recyclerview
+    api libs.viewpager2
+    api libs.meteria
+
+    // 生命周期
+    api 'androidx.lifecycle:lifecycle-runtime:2.7.0'
+    api libs.lifecycleViewModelKtx
+    api libs.lifecycleLivedataKtx
+    api libs.lifecycleRunTimeKtx
+    api 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0'
+    api 'androidx.savedstate:savedstate-ktx:1.2.1'
+    api libs.mmkv
+
+    // gson解析
+    api libs.gson
+    // 压缩
+    api libs.luban
+    // 上拉加载
+    api (libs.baseRecyclerViewAdapterHelper){
+        exclude group: 'androidx.recyclerview', module: 'recyclerview'
+    }
+
+    // 适配旧版本项目   过度使用
+    api (libs.baseRecyclerViewAdapterHelper3){
+        exclude group: 'androidx.recyclerview', module: 'recyclerview'
+    }
+
+    // 下拉刷新
+    api libs.ultraPtr
+    // 图片加载
+    api libs.glide
+//    小型项目或者对性能要求不高的项目并不需要迁移至 ksp
+    kapt libs.glideCompiler
+
+
+    // retrofit 请求
+    api libs.retrofit
+    api libs.converterGson
+    api libs.loggingInterceptor
+
+    // Compose 新页面路径
+    api 'androidx.activity:activity-compose:1.8.2'
+    api 'androidx.compose.ui:ui:1.5.1'
+    api 'androidx.compose.foundation:foundation:1.5.1'
+    api 'androidx.compose.material:material:1.5.1'
+    api 'androidx.compose.ui:ui-tooling-preview:1.5.1'
+
+    api libs.photoview.library
+    api libs.subsamplingscaleimageview.core
+
+    //解决数据倒灌问题
+    api libs.unpeek.livedata
+
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            //发布release版本
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+//                from components.release
+                from(components.findByName("release"))
+//                from components.findByName("release")
+                //groupId通常是自己的gitee或者GitHub的账户地址
+                groupId = 'com.github.hstrawdog'
+                //artifactId通常是指待发布项目的名称，也就是别名
+                artifactId = 'Core'
+                // 主要是这一行
+                // 2.将源码打包到aar中
+//                artifact androidSourcesJar
+//                artifact(androidSourcesJar)
+                //version通常是指待发布项目的版本号，这里是写死的，通常我们取项目versionName
+                version = '2.0.0'
+//                afterEvaluate {
+//                    from components.release
+//                }
+            }
+        }
+    }
+}

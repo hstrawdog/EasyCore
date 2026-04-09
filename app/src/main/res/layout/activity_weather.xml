@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+        <variable
+            name="vm"
+            type="com.easy.example.demo.weather.WeatherViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/x20"
+        tools:context="com.easy.example.demo.weather.WeatherActivity">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x90"
+            android:text='@{"城市 :   "+vm.mWeather.city}' />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x90"
+            android:text='@{"天气情况 :   "+vm.mWeather.realtime.info}' />
+
+    </LinearLayout>
+
+
+</layout>

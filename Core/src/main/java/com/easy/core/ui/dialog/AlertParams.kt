@@ -1,0 +1,95 @@
+package com.easy.core.ui.dialog
+
+import android.content.DialogInterface
+import com.easy.core.R
+import com.easy.core.utils.ResourcesUtils
+
+/**
+ * @Author : huangqiqiang
+ * @Package : com.easy.core.ui.dialog
+ * @FileName :   AlertParams
+ * @Date : 2020/7/30 0030  下午 1:58
+ * @Email : qiqiang213@gmail.com
+ * @Describe :
+ * 仿源码Dialog Builder 构建模式
+ * 需要不断补充属性
+ *
+ * 1. 三个按钮的文本都是空的  隐藏底部按钮  ->  如果改成 动态addView 效果会不会更理想
+ */
+class AlertParams {
+    /**
+     * 顶部标题
+     */
+    var titleData:StringData? = StringData("提示")
+
+    /**
+     *  中间内容或者提示
+     */
+    var contentData:StringData = StringData("")
+
+
+    /**
+     * 中间布局
+     */
+    var dialogViewBuilder:DialogViewBuilder? = null
+
+    /**
+     * 取消按钮上的文字
+     */
+    var negativeButtonText = "取消"
+
+    /**
+     * 取消按钮监听
+     */
+    var negativeButtonListener:DialogInterface.OnClickListener? = null
+
+    /**
+     * 确定按钮
+     */
+    var positiveButtonText:CharSequence = "确定"
+
+    /**
+     *  确定按钮颜色
+     */
+    var positiveButtonColor:Int = R.color.color_000
+
+    /**
+     * 确定按钮监听
+     */
+    var positiveButtonListener:DialogInterface.OnClickListener? = null
+
+    /**
+     * 中立按钮
+     */
+    var neutralButtonText:CharSequence = ""
+
+    /**
+     *  中立按钮监听
+     */
+    var neutralButtonListener:DialogInterface.OnClickListener? = null
+
+
+    /**
+     * 是否显示 按钮与内容的 横向 分割线
+     */
+    var showDividingLine:Boolean = true
+
+    /**
+     *  分割线颜色
+     */
+    var dividingLineColor:Int = R.color.color_line_gray
+
+    /**
+     *  点击空白位置 关闭dialog
+     */
+    var isDismissBackground = true
+
+    /**
+     *  屏蔽返回键
+     */
+    var shieldReturn = false
+
+
+    data class StringData(var str:CharSequence, var fontSize:Float = ResourcesUtils.getDimen(R.dimen.x36), var fontColor:Int? = null)
+
+}

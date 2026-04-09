@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="BannerLayout">
+        <attr name="rvb_interval" format="integer" />
+        <attr name="rvb_showIndicator" format="boolean" />
+        <attr name="rvb_indicatorSelectedColor" format="color" />
+        <attr name="rvb_indicatorUnselectedColor" format="color" />
+        <attr name="rvb_indicatorRadius" format="integer" />
+        <attr name="rvb_indicatorSpace" format="dimension|reference" />
+        <attr name="rvb_indicatorMargin" format="dimension|reference" />
+        <attr name="rvb_isShowTip" format="boolean" />
+        <attr name="rvb_tip_type" format="enum">
+            <enum name="circle" value="0" />
+            <enum name="HollowCircle" value="1" />
+            <enum name="rectangle" value="2" />
+
+        </attr>
+        <attr name="rvb_indicatorGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="rvb_autoPlaying" format="boolean" />
+        <attr name="rvb_selectSpeed" format="float" />
+    </declare-styleable>
+
+</resources>
